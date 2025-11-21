@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fixed vs Fluid Grid</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            background-color: #f0f2f5;
+            padding: 40px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        h2 { color: #333; border-bottom: 2px solid #ccc; padding-bottom: 10px; margin-top: 40px; }
+        p { color: #666; margin-bottom: 20px; }
+
+        /* SHARED BOX STYLES */
+        .box {
+            padding: 20px;
+            color: white;
+            font-weight: bold;
+            text-align: center;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        /* --- EXAMPLE 1: FIXED GRID (The "Stone Wall") --- */
+        .fixed-grid {
+            display: grid;
+            /* WE ARE USING PIXELS (px) - This is rigid/fixed */
+            grid-template-columns: 200px 200px 200px; 
+            gap: 15px;
+            
+            /* Visual styling for the container */
+            background: #ffebee;
+            border: 2px solid #ef9a9a;
+            padding: 20px;
+            border-radius: 10px;
+            /* This makes horizontal scrollbar appear if screen is small */
+            overflow-x: auto; 
+        }
+
+        .fixed-grid .box { background-color: #f44336; } /* Red */
+
+        /* --- EXAMPLE 2: FLUID GRID (The "Water") --- */
+        .fluid-grid {
+            display: grid;
+            /* WE ARE USING FRACTIONS (fr) & AUTO-FIT - This is fluid */
+            /* "Fit as many 200px items as possible, then stretch to fill gaps" */
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+
+            /* Visual styling for the container */
+            background: #e8f5e9;
+            border: 2px solid #a5d6a7;
+            padding: 20px;
+            border-radius: 10px;
+        }
+
+        .fluid-grid .box { background-color: #4caf50; } /* Green */
+
+    </style>
+</head>
+<body>
+
+    <h1>Grid vs. Fluid Grid</h1>
+    <p>Resize your browser window to see the difference.</p>
+
+    <h2>1. Fixed Grid (Pixels)</h2>
+    <p>Defined as: <code>grid-template-columns: 200px 200px 200px;</code></p>
+    <div class="fixed-grid">
+        <div class="box">200px</div>
+        <div class="box">200px</div>
+        <div class="box">200px</div>
+        <div class="box">200px</div>
+        <div class="box">200px</div>
+    </div>
+    <p><small><em>Note: If your screen is small, you have to scroll sideways to see the hidden boxes. If your screen is huge, there is empty space on the right.</em></small></p>
+
+    <h2>2. Fluid Grid (Fractions)</h2>
+    <p>Defined as: <code>repeat(auto-fit, minmax(200px, 1fr));</code></p>
+    <div class="fluid-grid">
+        <div class="box">Fluid Item</div>
+        <div class="box">Fluid Item</div>
+        <div class="box">Fluid Item</div>
+        <div class="box">Fluid Item</div>
+        <div class="box">Fluid Item</div>
+    </div>
+    <p><small><em>Note: These boxes shrink, grow, and wrap automatically to fit ANY screen size perfectly.</em></small></p>
+
+</body>
+</html>

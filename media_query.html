@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Media Query Demo</title>
+    <style>
+        body {
+            font-family: sans-serif;
+            padding: 20px;
+            text-align: center;
+        }
+
+        /* --- 1. DEFAULT STYLES (DESKTOP FIRST) --- */
+        /* By default, we want a Green background and 3 columns */
+        .container {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap; /* Allows items to wrap if needed */
+        }
+
+        .box {
+            background-color: #22c55e; /* Green */
+            color: white;
+            padding: 40px;
+            font-size: 20px;
+            font-weight: bold;
+            width: 32%; /* Approx 1/3rd of the screen */
+            box-sizing: border-box; /* Ensures padding doesn't break width */
+        }
+
+        .status {
+            font-size: 2rem;
+            margin-bottom: 20px;
+            color: #22c55e;
+        }
+
+        /* --- 2. TABLET MEDIA QUERY (Max Width: 768px) --- */
+        /* If screen is smaller than 768px, apply these rules */
+        @media (max-width: 768px) {
+            .box {
+                background-color: #eab308; /* Yellow */
+                color: black;
+                width: 48%; /* Approx 1/2 of the screen (2 per row) */
+            }
+            .status {
+                color: #eab308;
+                content: "Tablet Mode"; /* Just for visual aid */
+            }
+            .status::after { content: " (Tablet Mode)"; }
+        }
+
+        /* --- 3. MOBILE MEDIA QUERY (Max Width: 480px) --- */
+        /* If screen is smaller than 480px, override everything above */
+        @media (max-width: 480px) {
+            .box {
+                background-color: #ef4444; /* Red */
+                color: white;
+                width: 100%; /* Full width (Stacked) */
+            }
+            .container {
+                flex-direction: column; /* Force vertical stack */
+            }
+            .status {
+                color: #ef4444;
+            }
+            .status::after { content: " (Mobile Mode)"; }
+        }
+    </style>
+</head>
+<body>
+
+    <h1 class="status">Current View</h1>
+    <p>Resize your browser window to see the layout change.</p>
+
+    <div class="container">
+        <div class="box">Item 1</div>
+        <div class="box">Item 2</div>
+        <div class="box">Item 3</div>
+    </div>
+
+</body>
+</html>

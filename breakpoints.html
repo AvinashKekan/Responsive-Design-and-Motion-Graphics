@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Breakpoint Visualizer</title>
+    <style>
+        /* --- 1. BASE STYLES (MOBILE FIRST) --- */
+        /* We start by designing for the SMALLEST screen. */
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            margin: 0;
+            background-color: #f3f4f6;
+        }
+
+        /* The Indicator Bar */
+        .indicator {
+            padding: 20px;
+            color: white;
+            text-align: center;
+            font-weight: bold;
+            font-size: 1.5rem;
+            transition: background 0.3s;
+            /* Default Color (Mobile) */
+            background-color: #ef4444; /* Red */
+        }
+        
+        /* Use pseudo-element to display text based on CSS logic */
+        .indicator::after {
+            content: "Mobile View (< 600px)";
+        }
+
+        .container {
+            padding: 20px;
+            display: flex;
+            flex-wrap: wrap; /* Allow items to wrap */
+            gap: 20px;
+        }
+
+        .card {
+            background: white;
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            text-align: center;
+            font-size: 1.2rem;
+            
+            /* MOBILE LAYOUT: 1 card per row (100% width) */
+            width: 100%; 
+            border-left: 10px solid #ef4444; /* Red border matches header */
+        }
+
+        /* --- 2. TABLET BREAKPOINT (min-width: 600px) --- */
+        /* "If screen is bigger than 600px, do this..." */
+        @media (min-width: 600px) {
+            .indicator {
+                background-color: #f59e0b; /* Orange */
+            }
+            .indicator::after {
+                content: "Tablet View (> 600px)";
+            }
+
+            .card {
+                /* TABLET LAYOUT: 2 cards per row */
+                /* calc(50% - 10px) accounts for the gap */
+                width: calc(50% - 10px); 
+                border-left-color: #f59e0b;
+            }
+        }
+
+        /* --- 3. DESKTOP BREAKPOINT (min-width: 1000px) --- */
+        /* "If screen is bigger than 1000px, do this..." */
+        @media (min-width: 1000px) {
+            .indicator {
+                background-color: #10b981; /* Green */
+            }
+            .indicator::after {
+                content: "Desktop View (> 1000px)";
+            }
+
+            .card {
+                /* DESKTOP LAYOUT: 4 cards per row */
+                width: calc(25% - 15px);
+                border-left-color: #10b981;
+            }
+        }
+
+    </style>
+</head>
+<body>
+
+    <div class="indicator"></div>
+
+    <div class="container">
+        <div class="card">Item 1</div>
+        <div class="card">Item 2</div>
+        <div class="card">Item 3</div>
+        <div class="card">Item 4</div>
+    </div>
+
+</body>
+</html>
