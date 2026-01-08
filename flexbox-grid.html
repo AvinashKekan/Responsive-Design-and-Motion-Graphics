@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Ultimate CSS Layout Masterclass</title>
+    <style>
+        :root {
+            --grid-color: #0ea5e9;
+            --flex-color: #6366f1;
+            --dark-slate: #1e293b;
+        }
+
+        body {
+            font-family: 'Segoe UI', system-ui, sans-serif;
+            margin: 0;
+            background-color: #f1f5f9;
+            color: var(--dark-slate);
+            transition: all 0.5s ease;
+        }
+
+        /* --- 1. VIEWPORT INDICATOR (Media Query Logic) --- */
+        .indicator {
+            padding: 15px;
+            color: white;
+            text-align: center;
+            font-weight: bold;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            background-color: #ef4444; /* Mobile default */
+        }
+        .indicator::after { content: " MOBILE VIEW (< 768px)"; }
+
+        @media (min-width: 768px) {
+            .indicator { background-color: #f59e0b; }
+            .indicator::after { content: " TABLET VIEW (768px - 1024px)"; }
+        }
+        @media (min-width: 1024px) {
+            .indicator { background-color: #10b981; }
+            .indicator::after { content: " DESKTOP VIEW (> 1024px)"; }
+        }
+
+        .container { max-width: 1100px; margin: 0 auto; padding: 20px; }
+
+        .card {
+            background: white;
+            border-radius: 12px;
+            padding: 30px;
+            margin-bottom: 40px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            border-left: 8px solid #ddd;
+        }
+
+        /* --- 2. FLEXBOX SECTION --- */
+        .flex-card { border-left-color: var(--flex-color); }
+        .flex-demo-area {
+            display: flex;
+            gap: 15px;
+            background: #eef2ff;
+            padding: 20px;
+            border: 2px dashed var(--flex-color);
+            border-radius: 8px;
+            min-height: 80px;
+            transition: justify-content 0.3s ease;
+        }
+        .flex-item {
+            background: var(--flex-color);
+            color: white;
+            padding: 15px 25px;
+            border-radius: 6px;
+            font-weight: bold;
+        }
+
+        /* --- 3. GRID SECTION --- */
+        .grid-card { border-left-color: var(--grid-color); }
+        .grid-demo-area {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+            background: #f0f9ff;
+            padding: 20px;
+            border: 2px dashed var(--grid-color);
+            border-radius: 8px;
+        }
+        .grid-item {
+            background: var(--grid-color);
+            color: white;
+            padding: 20px;
+            border-radius: 6px;
+            text-align: center;
+            font-weight: bold;
+        }
+
+        /* --- 4. HYBRID SECTION (FLEX INSIDE GRID) --- */
+        .hybrid-card { border-left-color: #22c55e; }
+        
+        /* The Grid Skeleton */
+        .grid-parent {
+            display: grid;
+            grid-template-columns: 220px 1fr;
+            grid-template-rows: auto 1fr;
+            gap: 15px;
+            background: #cbd5e1;
+            padding: 15px;
+            border-radius: 12px;
+        }
+
+        /* Flexbox inside the Grid Header */
+        .flex-header-child {
+            grid-column: span 2;
+            background: var(--dark-slate);
+            color: white;
+            padding: 15px 25px;
+            display: flex; /* FLEXBOX ENABLED */
+            justify-content: space-between;
+            align-items: center;
+            border: 2px solid var(--flex-color);
+        }
+
+        .nav-links {
+            display: flex; /* FLEXBOX FOR LINKS */
+            gap: 20px;
+            list-style: none;
+            margin: 0;
+        }
+
+        /* Flexbox inside the Grid Main Content */
+        .main-content {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+        }
+
+        .flex-card-row {
+            display: flex; /* FLEXBOX FOR CARDS */
+            gap: 10px;
+            margin-top: 15px;
+            flex-wrap: wrap;
+        }
+
+        .mini-card {
+            background: var(--flex-color);
+            color: white;
+            padding: 15px;
+            flex: 1;
+            border-radius: 6px;
+            text-align: center;
+            font-size: 0.8rem;
+        }
+
+        /* UI Helpers */
+        .badge {
+            font-size: 0.7rem;
+            padding: 3px 8px;
+            border-radius: 4px;
+            color: white;
+            text-transform: uppercase;
+            margin-bottom: 10px;
+            display: inline-block;
+        }
+        .bg-grid { background: var(--grid-color); }
+        .bg-flex { background: var(--flex-color); }
+
+        .btn-group { margin-bottom: 15px; }
+        button {
+            padding: 8px 12px;
+            cursor: pointer;
+            border: 1px solid #ddd;
+            background: white;
+            border-radius: 4px;
+        }
+
+        /* Responsive Logic for the Simulator */
+        @media (max-width: 768px) {
+            .grid-parent { grid-template-columns: 1fr; }
+            .flex-header-child { flex-direction: column; gap: 10px; }
+            .grid-demo-area { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="indicator"></div>
+
+    <div class="container">
+        <header style="text-align: center; padding: 30px 0;">
+            <h1>CSS Layout Masterclass</h1>
+            <p>Mastering <b>Flexbox</b> (Alignment) and <b>Grid</b> (Architecture).</p>
+        </header>
+
+        <div class="card flex-card">
+            <h2>1. Flexbox <span class="badge bg-flex">One-Dimensional</span></h2>
+            <p>Items follow each other in a single line. Change the alignment below:</p>
+            <div class="btn-group">
+                <button onclick="document.getElementById('f1').style.justifyContent='flex-start'">Start</button>
+                <button onclick="document.getElementById('f1').style.justifyContent='center'">Center</button>
+                <button onclick="document.getElementById('f1').style.justifyContent='space-between'">Space-Between</button>
+            </div>
+            
+            <div class="flex-demo-area" id="f1">
+                <div class="flex-item">Item A</div>
+                <div class="flex-item">Item B</div>
+                <div class="flex-item">Item C</div>
+            </div>
+        </div>
+
+        <div class="card grid-card">
+            <h2>2. CSS Grid <span class="badge bg-grid">Two-Dimensional</span></h2>
+            <p>Creates a fixed structure of rows and columns (The Blueprint).</p>
+            
+            <div class="grid-demo-area">
+                <div class="grid-item" style="grid-column: span 3;">Header (Span 3 Columns)</div>
+                <div class="grid-item" style="grid-row: span 2;">Sidebar</div>
+                <div class="grid-item">Box 1</div>
+                <div class="grid-item">Box 2</div>
+                <div class="grid-item" style="grid-column: span 2;">Box 3 (Span 2)</div>
+            </div>
+        </div>
+
+        <div class="card hybrid-card">
+            <h2>3. The Hybrid <span class="badge bg-grid">Grid Parent</span> + <span class="badge bg-flex">Flex Children</span></h2>
+            <p>Grid handles the <b>outer skeleton</b>, while Flexbox handles the <b>inner content</b>.</p>
+            <p style="background-color: #f0fdf4; padding: 10px; border-radius: 6px; border-left: 4px solid #22c55e;">
+                This is how professional sites are built. We use <b>Grid</b> for the skeleton and <b>Flexbox</b> for the components.
+            </p>
+            
+            <div class="grid-parent">
+                <header class="flex-header-child">
+                    <div><span class="badge bg-flex">Flex Parent</span> <b>LOGO</b></div>
+                    <ul class="nav-links">
+                        <li><span class="badge bg-flex">Flex Item</span></li>
+                        <li><span class="badge bg-flex">Flex Item</span></li>
+                    </ul>
+                </header>
+
+                <aside style="background: white; padding: 15px; border-radius: 8px;">
+                    <span class="badge bg-grid">Grid Child</span>
+                    <p>Sidebar Menu</p>
+                </aside>
+
+                <main class="main-content">
+                    <span class="badge bg-grid">Grid Child</span>
+                    <h4>Product Dashboard</h4>
+                    <div class="flex-card-row">
+                        <div class="mini-card">Flex Card 1</div>
+                        <div class="mini-card">Flex Card 2</div>
+                        <div class="mini-card">Flex Card 3</div>
+                    </div>
+                </main>
+            </div>
+            
+        </div>
+    </div>
+
+</body>
+</html>
